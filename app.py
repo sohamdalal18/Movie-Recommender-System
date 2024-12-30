@@ -5,35 +5,11 @@ from processing import preprocess
 from processing.display import Main
 from processing.drive import download_files
 import os
-import pickle
+
+download_files()
 
 # Setting the wide mode as default
 st.set_page_config(layout="wide")
-
-# Add caching for downloading files and loading models
-@st.cache_resource
-def load_all_models():
-    with st.spinner('Please wait, the models are downloading...'):
-        download_dir = r"D:/Movie-Recommender-System/Files"
-        files_to_load = {
-            "movies_dict.pkl": "1RNcXlMl_Pe5v2dPeJ0JIM_KoeDQpKoAK",
-            "movies2_dict.pkl": "1PIkyf7WCx3ZAPhTFAHcKjTcIjsHGxaRA",
-            "new_df_dict.pkl": "1IqR-E_IqlM1bWUWWUSNZL0yzUmfCigf_",
-            "similarity_tags_genres.pkl": "1JL4Qfv13XN4BYtfeo269QxlloZVXFNjw",
-            "similarity_tags_keywords.pkl": "1N1DUmYT60FWTQGucpOjdh5bBsaZxJlGN",
-            "similarity_tags_tags.pkl": "1-fHq7RQjhf4gQ3NQDS76U2qg0Is10RNF",
-            "similarity_tags_tcast.pkl": "1CI57xekM3r_cIOhj7gJFwt-_FHB-tALX",
-            "similarity_tags_tprduction_comp.pkl": "127bAKeoq9PKPHABP0uBnDdJIeXtd5-k4"
-        }
-        
-        models = {}
-        for filename in files_to_load:
-            file_path = os.path.join(download_dir, filename)
-            with open(file_path, "rb") as f:
-                models[filename] = pickle.load(f)
-        return models
-# Load the models once at the start
-models = load_all_models()
 
 displayed = []
 
@@ -68,6 +44,7 @@ def main():
             paging_movies()
 
     def recommend_display():
+
         st.title('Movie Recommender System')
 
         selected_movie_name = st.selectbox(
@@ -87,14 +64,15 @@ def main():
             recommendation_tags(new_df, selected_movie_name, os.path.join(base_path, "similarity_tags_keywords.pkl"), "on the basis of keywords are")
             recommendation_tags(new_df, selected_movie_name, os.path.join(base_path, "similarity_tags_tcast.pkl"), "on the basis of cast are")
 
-    def recommendation_tags(new_df, selected_movie_name, pickle_file_path, str):
+    def recommendation_tags(new_df, selected_movie_name, pickle_file_path,str):
+
         movies, posters = preprocess.recommend(new_df, selected_movie_name, pickle_file_path)
         st.subheader(f'Best Recommendations {str}...')
 
         rec_movies = []
         rec_posters = []
         cnt = 0
-        # Adding only 5 unique recommendations
+        # Adding only 5 uniques recommendations
         for i, j in enumerate(movies):
             if cnt == 5:
                 break
@@ -104,7 +82,7 @@ def main():
                 displayed.append(j)
                 cnt += 1
 
-        # Columns to display information of movies i.e. movie title and movie poster
+        # Columns to display informations of movies i.e. movie title and movie poster
         col1, col2, col3, col4, col5 = st.columns(5)
         with col1:
             st.text(rec_movies[0])
@@ -123,7 +101,8 @@ def main():
             st.image(rec_posters[4])
 
     def display_movie_details():
-        selected_movie_name = st.selectbox('Select a Movie to describe:', movies['title'].values)
+
+        selected_movie_name = st.selectbox('Select a Movie to describe:',movies['title'].values)
         st.session_state.selected_movie_name = selected_movie_name
 
         try:
@@ -197,7 +176,7 @@ def main():
         for i in info[14]:
             if cnt == 5:
                 break
-            url, biography = preprocess.fetch_person_details(i)
+            url, biography= preprocess.fetch_person_details(i)
             urls.append(url)
             bio.append(biography)
             cnt += 1
@@ -263,6 +242,7 @@ def main():
         display_all_movies(st.session_state['movie_number'])
 
     def display_all_movies(start):
+
         i = start
         with st.container():
             col1, col2, col3, col4, col5 = st.columns(5)
