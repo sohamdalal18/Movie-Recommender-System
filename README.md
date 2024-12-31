@@ -22,3 +22,9 @@ Pickle models link :
 https://drive.google.com/drive/folders/1coqAvcDlsrsbZMTOFPl3Wj7ypW4PX2wR?usp=drive_link
 
 5. run the app.py file in your terminal
+
+***Demo Video***
+
+You can view the demo video of the project by clicking the link below:
+
+[Watch the demo video](https://drive.google.com/file/d/15H0CyzBBTm0ARgJrwYZThK4KDXutp8Xa/view?usp=sharing)
