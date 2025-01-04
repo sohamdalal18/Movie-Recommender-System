@@ -1,10 +1,10 @@
+import os
 import streamlit as st
 import streamlit_option_menu
 from streamlit_extras.stoggle import stoggle
 from processing import preprocess
 from processing.display import Main
-from processing.drive import download_files
-import os
+
 
 # Setting the wide mode as default
 st.set_page_config(layout="wide")
