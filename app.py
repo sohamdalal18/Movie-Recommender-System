@@ -6,8 +6,6 @@ from processing.display import Main
 from processing.drive import download_files
 import os
 
-download_files()
-
 # Setting the wide mode as default
 st.set_page_config(layout="wide")
 
