@@ -5,7 +5,6 @@ from streamlit_extras.stoggle import stoggle
 from processing import preprocess
 from processing.display import Main
 
-
 # Setting the wide mode as default
 st.set_page_config(layout="wide")
 
@@ -19,7 +18,6 @@ if 'selected_movie_name' not in st.session_state:
 
 if 'user_menu' not in st.session_state:
     st.session_state['user_menu'] = ""
-
 
 def main():
     def initial_options():
@@ -52,9 +50,7 @@ def main():
         rec_button = st.button('Recommend')
         if rec_button:
             st.session_state.selected_movie_name = selected_movie_name
-            # Define the base path for the pickle files after extraction
             base_path = "Files"
-
             # Updated function calls with the new paths
             recommendation_tags(new_df, selected_movie_name, os.path.join(base_path, "similarity_tags_tags.pkl"), "are")
             recommendation_tags(new_df, selected_movie_name, os.path.join(base_path, "similarity_tags_genres.pkl"), "on the basis of genres are")
